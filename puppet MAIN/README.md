@@ -33,4 +33,70 @@ sudo systemctl enable puppetserver.service
 systemctl status puppetserver.service 
 ```
 - it should look like 
-- ![Image of startservernode](https://github.com/camdar87/OE2/blob/main/puppet%20MAIN/img/serverstatus.png)
+- ![Image of ](https://github.com/camdar87/OE2/blob/main/puppet%20MAIN/img/serverstatus.png)
+
+# Configure Puppet Master
+- change ram to 512m
+```md
+sudo vim /etc/default/puppetserver
+```
+img change ram 
+
+- server will need restarted 
+```md
+sudo systemctl restart  puppetserver
+```
+
+# puppet agent 
+
+- install puppet agent ubuntu 18.04
+```md
+sudo apt install wget
+curl -O https://apt.puppet.com/puppet6-release-bionic.deb
+sudo apt install ./puppet6-release-bionic.deb
+sudo apt update
+sudo apt install  puppet-agent
+```
+- check  hosts
+```md
+sudo vim /etc/hosts
+```
+should look like-
+img hostnameAgent
+
+- check conf file
+```md
+sudo vim /etc/puppetlabs/puppet/puppet.conf
+```
+
+should look like 
+agent confFile
+
+- main conf 
+```md
+sudo vim /etc/puppetlabs/puppet/puppet.conf
+```
+main conf
+
+- now start service 
+```md
+sudo systemctl start puppet
+sudo systemctl enable puppet
+```
+
+
+- on puppet master list  certificates
+```md
+sudo /opt/puppetlabs/bin/puppetserver ca list --all
+```
+
+- sign all 
+```md
+sudo /opt/puppetlabs/bin/puppetserver ca sign --all
+```
+
+- it should all be working. you can test with 
+
+```md
+sudo /opt/puppetlabs/bin/puppet agent --test
+```

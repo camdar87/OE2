@@ -13,8 +13,23 @@ wget https://apt.puppetlabs.com/puppet6-release-bionic.deb
 sudo dpkg -i puppet6-release-bionic.deb
 ```
 
-# install pupper server
+# Install pupper server
 
 - `puppet server uses 2gb of ram by defualt`
 
-- 
+- install puppet server
+```md
+sudo apt install puppetserver
+```
+
+- Start and enable puppetserver service
+```md
+sudo systemctl start puppetserver.service
+sudo systemctl enable puppetserver.service
+```
+
+- check status 
+```md
+systemctl status puppetserver.service 
+```
+- it should look like 

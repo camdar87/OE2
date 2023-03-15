@@ -40,7 +40,7 @@ systemctl status puppetserver.service
 ```md
 sudo vim /etc/default/puppetserver
 ```
-img change ram 
+- ![Image of ](https://github.com/camdar87/OE2/blob/main/puppet%20MAIN/img/changeRam.png)
 
 - server will need restarted 
 ```md
@@ -62,7 +62,7 @@ sudo apt install  puppet-agent
 sudo vim /etc/hosts
 ```
 should look like-
-img hostnameAgent
+- ![Image of ](https://github.com/camdar87/OE2/blob/main/puppet%20MAIN/img/hostnameAGENT.png)
 
 - check conf file
 ```md
@@ -70,13 +70,13 @@ sudo vim /etc/puppetlabs/puppet/puppet.conf
 ```
 
 should look like 
-agent confFile
+- ![Image of ](https://github.com/camdar87/OE2/blob/main/puppet%20MAIN/img/agent%20confFile.png)
 
 - main conf 
 ```md
 sudo vim /etc/puppetlabs/puppet/puppet.conf
 ```
-main conf
+- ![Image of ](https://github.com/camdar87/OE2/blob/main/puppet%20MAIN/img/main%20conf.png)
 
 - now start service 
 ```md

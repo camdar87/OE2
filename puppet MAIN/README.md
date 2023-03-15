@@ -33,3 +33,4 @@ sudo systemctl enable puppetserver.service
 systemctl status puppetserver.service 
 ```
 - it should look like 
+- ![Image of startservernode](https://github.com/camdar87/OE2/blob/main/puppet%20MAIN/img/serverstatus.png)

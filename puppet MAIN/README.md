@@ -100,3 +100,106 @@ sudo /opt/puppetlabs/bin/puppetserver ca sign --all
 ```md
 sudo /opt/puppetlabs/bin/puppet agent --test
 ```
+
+# Install Nagios
+
+- On the main server
+
+
+`/etc/puppetlabs/code/modules/nagios/manifests/target.pp`
+
+```md
+class nagios::target {
+nagios_host { "backup-e.foo.org.nz":
+target => "/etc/nagios3/conf.d/ppt_hosts.cfg",
+alias => "backup",
+check_period => "24x7",
+max_check_attempts => 3,
+check_command => "check-host-alive",
+notification_interval => 30,
+notification_period => "24x7",
+notification_options => "d,u,r",
+mode => "0644",
+}
+nagios_host { "db-e.foo.org.nz":
+target => "/etc/nagios3/conf.d/ppt_hosts.cfg",
+alias => "db",
+check_period => "24x7",
+max_check_attempts => 3,
+check_command => "check-host-alive",
+notification_interval => 30,
+notification_period => "24x7",
+notification_options => "d,u,r",
+mode => "0644",
+}
+
+nagios_host { "app-e.foo.org.nz":
+target => "/etc/nagios3/conf.d/ppt_hosts.cfg",
+alias => "app",
+check_period => "24x7",
+max_check_attempts => 3,
+check_command => "check-host-alive",
+notification_interval => 30,
+notification_period => "24x7",
+notification_options => "d,u,r",
+mode => "0644",
+}
+
+}
+```
+
+`/etc/puppetlabs/code/modules/nagios/manifests/install.pp`
+
+```md
+class nagios::install {
+package { "nagios3" :
+ensure => present,
+}
+
+package { "apache2-utils":
+ensure => present,
+}
+}
+```
+
+`/etc/puppetlabs/code/modules/nagios/manifests/init.pp`
+
+```md
+class nagios {
+include nagios::install, nagios::target}
+```
+
+`/etc/puppetlabs/code/environments/production/manifests/site.pp`
+
+```md
+node 'mgmt-e.foo.org.nz' {
+  include sudo
+  include ntp_service
+  #include mariadb
+  include nagios
+}
+
+node 'backup-e.foo.org.nz' {
+  package { 'vim':ensure => present }
+  include sudo
+  include ntp_service
+  include mariadb
+  #include nagios::target
+}
+
+node 'db-e.foo.org.nz' {
+  package { 'vim':ensure => present }
+  include sudo
+  include ntp_service
+  include mariadb
+  #include nagios::target
+}
+
+node 'app-e.foo.org.nz' {
+  package { 'vim':ensure => present }
+  include sudo
+  include ntp_service
+  include mariadb
+  #include nagios::target
+}
+```

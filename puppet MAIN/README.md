@@ -203,3 +203,13 @@ node 'app-e.foo.org.nz' {
   #include nagios::target
 }
 ```
+
+
+# set time on promt 
+
+`PS1="\t [\u@\h \W]\\$ \[$(tput sgr0)\]"`
+
+change in `bashrc` file on line 69
+```md
+PS1="\t [\u@\h \W]\\$ \[$(tput sgr0)\]"
+```

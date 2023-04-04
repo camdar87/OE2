@@ -36,7 +36,7 @@ systemctl status puppetserver.service
 - ![Image of ](https://github.com/camdar87/OE2/blob/main/puppet%20MAIN/img/serverstatus.png)
 
 # Configure Puppet Master
-- change ram to `512m`
+- change ram to `512m` this has now been changed to 2gb
 ```md
 sudo vim /etc/default/puppetserver
 ```

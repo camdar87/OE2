@@ -214,5 +214,5 @@ change in `bashrc` file on line 69
 PS1="\t [\u@\h \W]\\$ \[$(tput sgr0)\]"
 ```
 
-prod vs manifets
+# prod vs manifets
 - we write modules in manifest and run them in environment

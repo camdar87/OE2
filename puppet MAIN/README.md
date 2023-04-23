@@ -110,6 +110,7 @@ sudo /opt/puppetlabs/bin/puppet agent --test
 
 ```md
 class nagios::target {
+
 nagios_host { "backup-e.foo.org.nz":
 target => "/etc/nagios3/conf.d/ppt_hosts.cfg",
 alias => "backup",
@@ -120,6 +121,7 @@ notification_interval => 30,
 notification_period => "24x7",
 notification_options => "d,u,r",
 mode => "0644",
+contacts => "slack",
 }
 nagios_host { "db-e.foo.org.nz":
 target => "/etc/nagios3/conf.d/ppt_hosts.cfg",
@@ -131,6 +133,7 @@ notification_interval => 30,
 notification_period => "24x7",
 notification_options => "d,u,r",
 mode => "0644",
+contacts => "slack",
 }
 
 nagios_host { "app-e.foo.org.nz":
@@ -143,9 +146,77 @@ notification_interval => 30,
 notification_period => "24x7",
 notification_options => "d,u,r",
 mode => "0644",
+contacts => "slack",
+}
+
+nagios_hostgroup { "my-ssh-servers":
+        target => "/etc/nagios3/conf.d/ppt_hostgroups.cfg",
+        mode => "0444",
+        alias => "My SSH servers",
+        members => "db-e.foo.org.nz, backup-e.foo.org.nz, app-e.foo.org.nz",
+}
+
+nagios_hostgroup { "my-mariadb-servers":
+        target => "/etc/nagios3/conf.d/ppt_hostgroups.cfg",
+        mode => "0444",
+        alias => "My MariaDB Servers",
+        members => 'db-e.foo.org.nz, backup-e.foo.org.nz, app-e.foo.org.nz',
+}
+
+nagios_service {"ssh":
+        service_description => "SSH Service",
+        hostgroup_name => "my-ssh-servers",
+        target => "/etc/nagios3/conf.d/ppt_services.cfg",
+        mode => "0444",
+        check_command => "check_ssh",
+        max_check_attempts => 3,
+        retry_check_interval => 1,
+        normal_check_interval => 5,
+        check_period => "24x7",
+        notification_interval => 30,
+        notification_period => "24x7",
+        notification_options => "w,u,c",
+        contact_groups => "admins",
+}
+
+nagios_service {"mariadb":
+        service_description => "MariaDB Service",
+        hostgroup_name => "my-mariadb-servers",
+        target => "/etc/nagios3/conf.d/ppt_services.cfg",
+        check_command => "check_mysql_cmdlinecred!puppetmaster!password",
+        max_check_attempts => 3,
+        retry_check_interval => 1,
+        normal_check_interval => 5,
+        check_period => "24x7",
+        notification_interval => 30,
+        notification_period => "24x7",
+        notification_options => "w,u,c",
+        contact_groups => "admins",
+}
+
+nagios_contact { "slack":
+target => "/etc/nagios3/conf.d/ppt_contacts.cfg",
+mode => "0444",
+alias => "Slack",
+service_notification_period => "24x7",
+host_notification_period => "24x7",
+service_notification_options => "w,u,c,r",
+host_notification_options => "d,r",
+service_notification_commands => "notify-service-by-slack",
+host_notification_commands => "notify-host-by-slack",
+email => "root@localhost",
+}
+
+nagios_contactgroup { "slackgroup":
+target => "/etc/nagios3/conf.d/ppt_contactgroups.cfg",
+mode => "0444",
+alias => "Slack channel",
+members => "slack",
+contactgroup_name => "admins",
 }
 
 }
+
 ```
 
 `/etc/puppetlabs/code/modules/nagios/manifests/install.pp`

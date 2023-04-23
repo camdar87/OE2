@@ -175,7 +175,7 @@ nagios_service {"ssh":
         check_period => "24x7",
         notification_interval => 30,
         notification_period => "24x7",
-        notification_options => "w,u,c",
+        notification_options => "w,u,c,r",
         contact_groups => "admins",
 }
 
@@ -190,7 +190,7 @@ nagios_service {"mariadb":
         check_period => "24x7",
         notification_interval => 30,
         notification_period => "24x7",
-        notification_options => "w,u,c",
+        notification_options => "w,u,c,r",
         contact_groups => "admins",
 }
 

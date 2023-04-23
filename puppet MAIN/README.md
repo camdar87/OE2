@@ -212,7 +212,7 @@ target => "/etc/nagios3/conf.d/ppt_contactgroups.cfg",
 mode => "0444",
 alias => "Slack channel",
 members => "slack",
-contactgroup_name => "admins",
+contactgroup_name => "admin",
 }
 
 }

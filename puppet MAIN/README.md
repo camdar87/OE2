@@ -356,4 +356,6 @@ class myusers {
 
 - open the file and in one of the VM's add `include myusers`
 
+- you will now need to go to the vm you added it to and type `puppet agent --test`. **NOTE!** you may need to be in root to do this use command `sudo -i` and run command.
+
 

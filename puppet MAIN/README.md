@@ -293,3 +293,67 @@ PS1="\t [\u@\h \W]\\$ \[$(tput sgr0)\]"
 
 # prod vs manifets
 - we write modules in manifest and run them in environment
+# manage users with puppet 
+
+- site.pp on main vm 
+![image](https://user-images.githubusercontent.com/55121777/234443281-8116a689-c587-4fbb-8a51-f1a76d20e2fd.png)
+
+- myusers .init
+
+![image](https://user-images.githubusercontent.com/55121777/234443417-4792f72a-3ce9-4f48-878b-9cc4af870763.png)
+
+### to start you need to make the folders
+
+``` md 
+mkdir myusers 
+``` 
+- next cd in to dir `cd myusers`
+- create three folders called.
+```md
+mkdir files manifests templates 
+```
+you will need all tree.
+- next cd into manifets `cd maifests`
+
+- now create a file called `init.pp`
+
+- past this code in.
+
+```md
+
+class myusers {
+  user { 'Cam':
+    ensure   => present,
+    gid      => 'users',
+    home     => '/home/Cam',
+    managehome => true,
+    password => '$password',
+    shell    => '/bin/bash',
+  }
+
+  user { 'Kieren':
+    ensure   => present,
+    gid      => 'users',
+    home     => '/home/Kieren',
+    managehome => true,
+    password => '$password',
+    shell    => '/bin/bash',
+  }
+
+  user { 'group-e':
+    ensure   => present,
+    gid      => 'users',
+    home     => '/home/group-e',
+    managehome => true,
+    password => '$passowrd',
+    shell    => '/bin/bash',
+  }
+}
+
+```
+
+- next navigate to `/etc/puppetlabs/code/environments/production/manifests`
+
+- open the file and in one of the VM's add `include myusers`
+
+

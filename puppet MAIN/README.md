@@ -358,4 +358,7 @@ class myusers {
 
 - you will now need to go to the vm you added it to and type `puppet agent --test`. **NOTE!** you may need to be in root to do this use command `sudo -i` and run command.
 
+- And that should work. Now you can check the users on the other VM, it should look like this. ![image](https://user-images.githubusercontent.com/55121777/234447624-666fc1ca-1776-41dc-9c48-049e08923531.png)
+
+
 

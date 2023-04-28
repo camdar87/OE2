@@ -360,5 +360,7 @@ class myusers {
 
 - And that should work. Now you can check the users on the other VM, it should look like this. ![image](https://user-images.githubusercontent.com/55121777/234447624-666fc1ca-1776-41dc-9c48-049e08923531.png)
 
+! **note** ! be careful with the password as it will be changed 
+
 
 

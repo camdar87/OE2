@@ -29,3 +29,5 @@
 ## recovery plan
 - Define recovery objectives: Determine how quickly you need to recover critical systems and data after a disaster.
 
+- we should update the plan for any changes we make to what is being backed up.
+
